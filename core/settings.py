@@ -35,6 +35,8 @@ CSRF_TRUSTED_ORIGINS = config(
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 AUTH_USER_MODEL = 'users.User'
 
 # Application definition
