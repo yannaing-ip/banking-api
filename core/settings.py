@@ -32,6 +32,9 @@ CSRF_TRUSTED_ORIGINS = config(
     cast=lambda v: [i.strip() for i in v.split(",") if i],
     default="http://127.0.0.1,http://localhost",
 )
+
+AUTH_USER_MODEL = 'users.User'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,6 +49,7 @@ INSTALLED_APPS = [
     'users',
     'accounts',
     'transactions',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +134,19 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+from datetime import timedelta
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes = 60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days = 7),
+    'ROTATE_REFRESH_TOKENS': True,
+}
