@@ -33,6 +33,8 @@ CSRF_TRUSTED_ORIGINS = config(
     default="http://127.0.0.1,http://localhost",
 )
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 AUTH_USER_MODEL = 'users.User'
 
 # Application definition
@@ -50,9 +52,11 @@ INSTALLED_APPS = [
     'accounts',
     'transactions',
     'drf_yasg',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
