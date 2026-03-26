@@ -27,6 +27,11 @@ DEBUG = config('DJANGO_DEBUG', cast=bool, default = True)
 
 ALLOWED_HOSTS = ["banking-api-production-9407.up.railway.app"]
 
+CSRF_TRUSTED_ORIGINS = config(
+    "DJANGO_CSRF_TRUSTED_ORIGIN",
+    cast=lambda v: [i.strip() for i in v.split(",") if i],
+    default=""
+)
 # Application definition
 
 INSTALLED_APPS = [
