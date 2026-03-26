@@ -25,7 +25,7 @@ SECRET_KEY = config('DJANGO_SECRET_KEY', cast=str, default='12345670666')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DJANGO_DEBUG', cast=bool, default = True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*.railway.app"]
 
 # Application definition
 
