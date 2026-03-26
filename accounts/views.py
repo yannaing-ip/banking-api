@@ -11,9 +11,10 @@ class CreateAccountView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request):
+        if Account.objects.filter(user = request.user).exists():
+            return Response({'error': 'You already have an account'}, status = status.HTTP_400_BAD_REQUEST)
         account = Account.objects.create(user = request.user)
         return Response(AccountSerializer(account).data, status = status.HTTP_201_CREATED)
-
 
 class ListAccountView(APIView):
     permission_classes = (IsAuthenticated,)
