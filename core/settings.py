@@ -25,12 +25,12 @@ SECRET_KEY = config('DJANGO_SECRET_KEY', cast=str, default='12345670666')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DJANGO_DEBUG', cast=bool, default = True)
 
-ALLOWED_HOSTS = ["banking-api-production-9407.up.railway.app"]
+ALLOWED_HOSTS = ["banking-api-production-9407.up.railway.app", "127.0.0.1"]
 
 CSRF_TRUSTED_ORIGINS = config(
     "DJANGO_CSRF_TRUSTED_ORIGIN",
     cast=lambda v: [i.strip() for i in v.split(",") if i],
-    default=""
+    default="http://127.0.0.1,http://localhost",
 )
 # Application definition
 
@@ -82,17 +82,13 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DATABASE_NAME', cast = str, default=None),
-        'USER': config('DATABASE_USER', cast = str, default=None),
-        'PASSWORD': config('DATABASE_PASSWORD', cast = str, default=None),
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+import dj_database_url
 
+DATABASES = {
+    "default": dj_database_url.config(
+        default=config("DATABASE_URL")
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
